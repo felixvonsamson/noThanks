@@ -28,5 +28,10 @@ class The_game():
       return None
 
   def end(game):
+    for player in game.players:
+      player.score = 0
+      for set in player.sorted_cards:
+        player.score += set[0]
+      player.score -= player.tokens
     game.card = "END"
 

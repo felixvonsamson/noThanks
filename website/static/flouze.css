@@ -253,6 +253,7 @@ hr{border:0;border-top:1px solid #eee;margin:20px 0}
 }
 
 .coin{width:0.8em; height: 0.8em; position:relative; top:0.1em; margin-right: 0.2em;}
+.token{width:0.8em; height: 0.8em;}
 .flag{width:3em; height: 3em; position:relative; margin-bottom: -0.45em; cursor:pointer;}
 .flag_select:hover{filter:sepia(50%)}
 .flag-container{border-radius:50%; padding:0.5em;}
@@ -338,3 +339,48 @@ body {height: 100%; justify-content:flex-start;}
 .recap-div{display:flex; flex-direction:column; align-items:center}
 .recap-subdiv{width:800px; display:flex; flex-direction:column; align-items:center}
 .recap-txt{font-size:18px; text-align: justify; text-justify: inter-word;}
+
+.other_player_container {
+  display: flex;
+  flex-grow: 1;
+  flex-direction:column;
+  align-items:center;
+}
+
+.card_container {
+  display: flex;
+  flex-wrap: wrap;
+  gap:2%;
+  justify-content:center;
+  width:100%
+}
+
+.series {
+  max-width: 2.5em;
+  flex: 1;
+  display:flex; 
+  flex-direction:column;
+}
+
+.card {
+  background-color:#fff;
+  height: 4em;
+  border: 1px solid black;
+  border-radius: 0.3em;
+  font-weight: bold;
+  max-width: 2.5em;
+  text-align: center;
+  position: relative;
+  margin-bottom:-2.7em
+}
+
+.token_container{
+  display: flex;
+  align-items:center;
+  flex-grow: 0.8;
+  width:90%;
+  flex-wrap: wrap;
+  font-size:40px;
+  gap:0.2em;
+  justify-content:center;
+}

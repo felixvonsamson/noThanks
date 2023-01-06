@@ -49,8 +49,12 @@ def add_handlers(socketio, engine):
       else:
         game.end()
     else:
-      player.tokens -= 1
-      game.card[1] += 1
-      game.current_player = game.players[(game.current_player.ID + 1) % \
-        len(game.players)]
+      if player.tokens == 0:
+        player.send_message(engine.text["player_txt"]["no tokens"]\
+        [player.lang_id], category="error")
+      else:
+        player.tokens -= 1
+        game.card[1] += 1
+        game.current_player = game.players[(game.current_player.ID + 1) % \
+          len(game.players)]
     engine.socketio.emit("refresh", broadcast=True)

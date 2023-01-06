@@ -1,4 +1,5 @@
-{% set game =  player.engine.game %}
+{% set game = player.engine.game %}
+{% set text = engine.text["html_txt"] %}
 {% extends "base.jinja" %}
 {% block title %}No Thanks !{% endblock %}
 {% block content %}
@@ -6,27 +7,60 @@
 <div class="large">
   <div class="flex-horizontal space-around">
     {% for other_player in player.other_players %}
-      <div {% if other_player == game.current_player %} class="w3-text-red" {% endif %}>
-        {{other_player.name}} : {{other_player.tokens}}
-      <div class="w3-text-teal medium">
-      {% for card in other_player.cards %}
-        / {{card}}
-      {% endfor %}
+    <div class="other_player_container">
+      <div class="w3-center {% if other_player==game.current_player %} w3-text-red {% endif %}">
+        {{other_player.name}} : 
+        {% for t in range(other_player.tokens) %} 
+        <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token"> 
+        {% endfor %}
       </div>
+      <div class="card_container">
+        {% for series in other_player.sorted_cards %}
+        <div class="series">
+          {% for card in series %}
+            <div class="card">{{card}}</div>
+          {% endfor %}
+        </div>
+        {% endfor %}
       </div>
+    </div>
     {% endfor %}
   </div>
 
-  <div class="w3-display-middle">
-    {{game.card[0]}} -> {{game.card[1]}}
+  <div class="w3-display-middle w3-jumbo">
+  {% if game.card == "END" %}
+    <table class="w3-table w3-striped w3-xlarge w3-centered w3-white">
+      <tr>
+        <th>Players</th>
+        <th>Score</th>
+      </tr>
+      {% for player in engine.players %}
+        <tr>
+          <td>{{player.name}}</td>
+          <td>{{player.score}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <div class="card flex-vertical center-items" style="width:2.5em">
+    {{game.card[0]}}
+    <div class="token_container">
+    {% for t in range(game.card[1]) %}
+      <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token">
+    {% endfor %}
+    </div>
+    </div>
+  {% endif %}
   </div>
 
   <div class="w3-display-bottommiddle">
-    {{player.tokens}}
-    <button onclick="card_action(true);" class="w3-button w3-round-large w3-gray w3-center">Take card</button>
-    <button onclick="card_action(false);" class="w3-button w3-round-large w3-gray w3-center">No tanks !</button>
+    {% for t in range(player.tokens) %} 
+    <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token"> 
+    {% endfor %}
+    <button onclick="card_action(true);" class="w3-button w3-round-large w3-gray w3-center">{{text["take card"][player.lang_id]}}</button>
+    <button onclick="card_action(false);" class="w3-button w3-round-large w3-gray w3-center">{{text["no thanks"][player.lang_id]}}</button>
     {% for card in player.cards %}
-      / {{card}}
+    / {{card}}
     {% endfor %}
   </div>
 </div>
@@ -36,6 +70,6 @@
 
 {% block additionnal_script %}
 function card_action(decision) {
-  socket.emit('card_action', decision);
+socket.emit('card_action', decision);
 }
 {% endblock %}

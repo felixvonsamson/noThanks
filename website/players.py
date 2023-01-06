@@ -13,6 +13,24 @@ class Player(object):
     player.messages = []
     player.cards = set()
     player.tokens = 5
+    player.score = None
+  
+  @property
+  def sorted_cards(player):
+    cards = sorted(player.cards)
+    output = []
+    series = []
+    for i, num in enumerate(cards):
+        if not series:
+            series.append(num)
+        elif num == series[-1] + 1:
+            series.append(num)
+        else:
+            output.append(series)
+            series = [num]
+    output.append(series)
+    return output
+
 
   def emit(player, *args):
     if player.sid:

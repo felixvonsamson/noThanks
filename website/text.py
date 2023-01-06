@@ -83,6 +83,10 @@ player_txt = {
     "{name} was quicker !",
     "{name} a été plus rapide !",
     "{name} war schneller !"],
+  "no tokens" : [
+    "You dont have any tokens left",
+    "Vous n'avez plus de jetons",
+    "Sie haben keine Münzem mehr"]
 }
 
 html_txt = {
@@ -110,4 +114,12 @@ html_txt = {
     "NO",
     "NON",
     "NEIN"],
+  "take card" : [
+    "take card",
+    "prendre la carte",
+    "Karte nehmen"],
+  "no thanks" : [
+    "no thanks !",
+    "non merci",
+    "nein danke"]
 }
