@@ -9,10 +9,10 @@
     {% for other_player in player.other_players %}
     <div class="other_player_container">
       <div class="w3-center {% if other_player==game.current_player %} w3-text-red {% endif %}">
-        {{other_player.name}} : 
-        {% for t in range(other_player.tokens) %} 
+        {{other_player.name}}
+        <!--{% for t in range(other_player.tokens) %} 
         <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token"> 
-        {% endfor %}
+        {% endfor %}-->
       </div>
       <div class="card_container">
         {% for series in other_player.sorted_cards %}
