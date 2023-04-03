@@ -70,6 +70,6 @@
 
 {% block additionnal_script %}
 function card_action(decision) {
-socket.emit('card_action', decision);
+socket.emit('card_action', decision, {{player.ID}});
 }
 {% endblock %}

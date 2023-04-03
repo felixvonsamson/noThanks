@@ -37,24 +37,25 @@ def add_handlers(socketio, engine):
       player.send_message(engine.text["player_txt"]["language change"]\
         [new_lang_id])
   @socketio.on("card_action")
-  def card_action(take_card):
+  def card_action(take_card, playerID):
     game = engine.game
-    player = game.current_player
-    if take_card:
-      player.cards.add(game.card[0])
-      player.tokens += game.card[1]
-      next_card = game.new_card()
-      if next_card:
-        game.card = next_card
+    current_player = game.current_player
+    if playerID == current_player.ID :
+      if take_card:
+        current_player.cards.add(game.card[0])
+        current_player.tokens += game.card[1]
+        next_card = game.new_card()
+        if next_card:
+          game.card = next_card
+        else:
+          game.end()
       else:
-        game.end()
-    else:
-      if player.tokens == 0:
-        player.send_message(engine.text["player_txt"]["no tokens"]\
-        [player.lang_id], category="error")
-      else:
-        player.tokens -= 1
-        game.card[1] += 1
-        game.current_player = game.players[(game.current_player.ID + 1) % \
-          len(game.players)]
+        if current_player.tokens == 0:
+          current_player.send_message(engine.text["player_txt"]["no tokens"]\
+          [current_player.lang_id], category="error")
+        else:
+          current_player.tokens -= 1
+          game.card[1] += 1
+          game.current_player = game.players[(game.current_player.ID + 1) % \
+            len(game.players)]
     engine.socketio.emit("refresh", broadcast=True)
