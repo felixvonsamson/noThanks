@@ -18,15 +18,15 @@
     <title>{{text["login"][engine.lang_id]}}</title>
   </head>
 
-  <body class="medium">
+  <body>
     <div class="login_box display_middle white">
-      <div class="container teal center large padding">
+      <div class="container teal txt_center padding large">
         {{text["who are you ?"][engine.lang_id]}}
       </div>
 
-      <form class="container padding" method="POST">
-        <p><input type="text" class="input border margin-bottom" placeholder="{{text['name'][engine.lang_id]}}" id="firstName" name="firstName" required></p>
-        <p class="center"><button type="submit" class="login_button teal">{{text["log in"][engine.lang_id]}}</button></p>
+      <form class="container padding-large flex-col medium" method="POST">
+        <input type="text" class="input border margin-bottom" placeholder="{{text['name'][engine.lang_id]}}" id="firstName" name="firstName" required>
+        <button type="submit" class="teal login_button medium">{{text["log in"][engine.lang_id]}}</button>
       </form>
     </div>
   </body>
