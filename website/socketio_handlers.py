@@ -58,4 +58,7 @@ def add_handlers(socketio, engine):
           game.card[1] += 1
           game.current_player = game.players[(game.current_player.ID + 1) % \
             len(game.players)]
+    else:
+      game.players[playerID].send_message(engine.text["player_txt"]\
+            ["not your turn"][current_player.lang_id], category="error")
     engine.socketio.emit("refresh", broadcast=True)

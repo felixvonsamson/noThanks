@@ -86,7 +86,11 @@ player_txt = {
   "no tokens" : [
     "You dont have any tokens left",
     "Vous n'avez plus de jetons",
-    "Sie haben keine Münzem mehr"]
+    "Sie haben keine Münzem mehr"],
+  "not your turn" : [
+    "It is not your turn to play",
+    "Ce n'est pas à vous de jouer",
+    "Du bist nicht an der Reihe"]
 }
 
 html_txt = {

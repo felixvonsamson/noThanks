@@ -15,51 +15,40 @@
     <title>{% block title %}{% endblock %}</title>
   </head>
 
-<body class="flex-vertical" style="background-color: rgb(172, 196, 172);">
+<body class="content" style="background-color: rgb(172, 196, 172);">
 
 {% block content %} {% endblock %}
 
 <!--Toasts-->
-<div id="messages" class="toast">
+<div id="messages" class="toast_container small">
 {% for category, message in get_flashed_messages(with_categories=true) %}
   {% if category == "message" %}
-  <div class="w3-pale-green w3-round-large w3-border w3-border-green w3-padding-small small" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; margin-left: 5px; margin-right: 5px;">
-    <i class="fa fa-info-circle w3-text-green" style="margin-right: 6px;"></i>
-    <div class="w3-center">{{ message }}</div>
-    <span onclick="this.parentElement.style.display='none'" class="w3-hover-gray w3-center w3-large w3-round-large" style="width: 25px; position:relative; left:3px">&times;</span>
+  <div class="success_message padding-small">
+    <i class="fa fa-info-circle text-green" style="margin-right: 6px;"></i>
+    <div class="txt_center">{{ message }}</div>
+    <span onclick="this.parentElement.style.display='none'" class="message_cross txt_center">&times;</span>
   </div>
   {% elif category == "error" %}
-  <div class="w3-pale-red w3-round-large w3-border w3-border-red w3-padding-small small" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; margin-left: 5px; margin-right: 5px;">
-    <i class="fa fa-exclamation-circle w3-text-red" style="margin-right: 6px;"></i>
-    <div class="w3-center">{{ message }}</div>
-    <span onclick="this.parentElement.style.display='none'" class="w3-hover-gray w3-center w3-round-large" style="width: 25px; position:relative; left:3px">&times;</span>
-  </div>  
+  <div class="error_message padding-small">
+    <i class="fa fa-exclamation-circle text-red" style="margin-right: 6px;"></i>
+    <div class="txt_center">{{ message }}</div>
+    <span onclick="this.parentElement.style.display='none'" class="message_cross txt_center">&times;</span>
+  </div>
   {% endif %}
 {% endfor %}
 
 {% for message_id, category, message in player.messages_to_show %}
   {% if category == "message" %}
-  <div class="w3-pale-green w3-round-large w3-border w3-border-green w3-padding-small small" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; margin-left: 5px; margin-right: 5px;">
-    <i class="fa fa-info-circle w3-text-green" style="margin-right: 6px;"></i>
-    <div class="w3-center">{{ message }}</div>
-    <span onclick="this.parentElement.style.display='none'; hide_message({{ message_id }});" class="w3-hover-gray w3-center w3-large w3-round-large" style="width: 25px; position:relative; left:3px">&times;</span>
+  <div class="success_message padding-small">
+    <i class="fa fa-info-circle text-green" style="margin-right: 6px;"></i>
+    <div class="txt_center">{{ message }}</div>
+    <span onclick="this.parentElement.style.display='none'; hide_message({{ message_id }});" class="message_cross txt_center">&times;</span>
   </div>
   {% elif category == "error" %}
-  <div class="w3-pale-red w3-round-large w3-border w3-border-red w3-padding-small small" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; margin-left: 5px; margin-right: 5px;">
-    <i class="fa fa-exclamation-circle w3-text-red" style="margin-right: 6px;"></i>
-    <div class="w3-center">{{ message }}</div>
-    <span onclick="this.parentElement.style.display='none'; hide_message({{ message_id }});" class="w3-hover-gray w3-center w3-round-large" style="width: 25px; position:relative; left:3px">&times;</span>
-  </div>
-  {% elif category == "request" %}
-  <div class="w3-pale-yellow w3-round-large w3-border w3-border-yellow w3-padding-small small" style="margin-bottom:5px; margin-left: 5px; margin-right: 5px;">
-    <div style="display:flex; justify-content:space-between; align-items:center;">
-      <i class="fa fa-question-circle w3-text-yellow" style="margin-right: 6px;"></i>
-      <div class="w3-center">{{ message }}</div>
-    </div>
-    <div style="display:flex; justify-content:space-around;">
-      <button onclick="this.parentElement.parentElement.style.display='none'; hide_message({{ message_id }}); answer_flouze_request(true);" class="w3-button w3-round-large w3-green w3-center" style="padding:3px; width:90px">{{text["accept"][player.lang_id]}}</i></button>
-      <button onclick="this.parentElement.parentElement.style.display='none'; hide_message({{ message_id }}); answer_flouze_request(false);" class="w3-button w3-round-large w3-red w3-center" style="padding:3px; width:90px">{{text["decline"][player.lang_id]}}</button>
-    </div>
+   <div class="error_message padding-small">
+    <i class="fa fa-exclamation-circle text-red" style="margin-right: 6px;"></i>
+    <div class="txt_center">{{ message }}</div>
+    <span onclick="this.parentElement.style.display='none'; hide_message({{ message_id }});" class="message_cross txt_center">&times;</span>
   </div>
   {% endif %}
 {% endfor %}
@@ -92,18 +81,18 @@
       hiding_code = (message_id != null) ? `hide_message(${message_id})` : '';
       if (category == 'message') {
           document.getElementById('messages').innerHTML += `
-            <div class="w3-pale-green w3-round-large w3-border w3-border-green w3-padding-small small" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; margin-left: 5px; margin-right: 5px;">
-              <i class="fa fa-info-circle w3-text-green" style="margin-right: 6px;"></i>
-              <div class="w3-center">${message}</div>
-              <span onclick="this.parentElement.style.display='none'; ${hiding_code}" class="w3-hover-gray w3-center w3-large w3-round-large" style="width: 25px; position:relative; left:3px">&times;</span>
+            <div class="success_message padding-small">
+              <i class="fa fa-info-circle text-green" style="margin-right: 6px;"></i>
+              <div class="txt_center">${message}</div>
+              <span onclick="this.parentElement.style.display='none'; ${hiding_code}" class="message_cross txt_center">&times;</span>
             </div>
             `;
       } else if (category == 'error') {
           document.getElementById('messages').innerHTML += `
-            <div class="w3-pale-red w3-round-large w3-border w3-border-red w3-padding-small small" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px; margin-left: 5px; margin-right: 5px;">
-              <i class="fa fa-exclamation-circle w3-text-red" style="margin-right: 6px;"></i>
-              <div class="w3-center">${message}</div>
-              <span onclick="this.parentElement.style.display='none'; ${hiding_code}" class="w3-hover-gray w3-center w3-round-large" style="width: 25px; position:relative; left:3px">&times;</span>
+            <div class="error_message padding-small">
+              <i class="fa fa-exclamation-circle text-red" style="margin-right: 6px;"></i>
+              <div class="txt_center">${message}</div>
+              <span onclick="this.parentElement.style.display='none'; ${hiding_code}" class="message_cross txt_center">&times;</span>
             </div>
             `;
       }

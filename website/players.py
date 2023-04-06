@@ -17,13 +17,13 @@ class Player(object):
   
   @property
   def sorted_cards(player):
-    cards = sorted(player.cards)
+    cards = sorted(player.cards, reverse=True)
     output = []
     series = []
-    for i, num in enumerate(cards):
+    for num in cards:
         if not series:
             series.append(num)
-        elif num == series[-1] + 1:
+        elif num == series[-1] - 1:
             series.append(num)
         else:
             output.append(series)

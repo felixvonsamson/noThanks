@@ -4,64 +4,73 @@
 {% block title %}No Thanks !{% endblock %}
 {% block content %}
 
-<div class="large">
-  <div class="flex-horizontal space-around">
-    {% for other_player in player.other_players %}
-    <div class="other_player_container">
-      <div class="w3-center {% if other_player==game.current_player %} w3-text-red {% endif %}">
-        {{other_player.name}}
-        <!--{% for t in range(other_player.tokens) %} 
-        <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token"> 
-        {% endfor %}-->
-      </div>
-      <div class="card_container">
-        {% for series in other_player.sorted_cards %}
-        <div class="series">
-          {% for card in series %}
-            <div class="card">{{card}}</div>
-          {% endfor %}
-        </div>
+<div class="other_player_container large">
+  {% for other_player in player.other_players %}
+  <div class="player_container {% if other_player==game.current_player %} blue {% else %} green {% endif %}">
+    <div>
+      {{other_player.name}}
+      <!--{% for t in range(other_player.tokens) %} 
+      <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token"> 
+      {% endfor %}-->
+    </div>
+    <div class="card_container">
+      {% for series in other_player.sorted_cards %}
+      <div class="series">
+        {% for card in series %}
+          <div class="card" style="background-image:url({{ url_for('static', filename='pics/' + card|string + '.jpg') }})">
+          <div class="circle white">{{card}}</div>
+          </div>
         {% endfor %}
       </div>
-    </div>
-    {% endfor %}
-  </div>
-
-  <div class="w3-display-middle w3-jumbo">
-  {% if game.card == "END" %}
-    <table class="w3-table w3-striped w3-xlarge w3-centered w3-white">
-      <tr>
-        <th>Players</th>
-        <th>Score</th>
-      </tr>
-      {% for player in engine.players %}
-        <tr>
-          <td>{{player.name}}</td>
-          <td>{{player.score}}</td>
-        </tr>
       {% endfor %}
-    </table>
-  {% else %}
-    <div class="card flex-vertical center-items" style="width:2.5em">
-    {{game.card[0]}}
-    <div class="token_container">
-    {% for t in range(game.card[1]) %}
-      <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token">
-    {% endfor %}
     </div>
-    </div>
-  {% endif %}
   </div>
+  {% endfor %}
+</div>
 
-  <div class="w3-display-bottommiddle">
-    {% for t in range(player.tokens) %} 
-    <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token"> 
+<div class="huge">
+{% if game.card == "END" %}
+  <div class="txt_center"><b>Scores</b></div>
+  <table class="large txt_center">
+    {% for player in engine.players %}
+      <tr>
+        <td>{{player.name}}</td>
+        <td><b>{{player.score}}</b></td>
+      </tr>
     {% endfor %}
-    <button onclick="card_action(true);" class="w3-button w3-round-large w3-gray w3-center">{{text["take card"][player.lang_id]}}</button>
-    <button onclick="card_action(false);" class="w3-button w3-round-large w3-gray w3-center">{{text["no thanks"][player.lang_id]}}</button>
-    {% for card in player.cards %}
-    / {{card}}
-    {% endfor %}
+  </table>
+{% else %}
+  <div class="card center_card " style="background-image:url({{ url_for('static', filename='pics/' + game.card[0]|string + '.jpg') }})">
+  <div class="circle white">{{game.card[0]}}</div>
+  <div class="token_container">
+  {% for t in range(game.card[1]) %}
+    <img src="{{ url_for('static', filename='images/token.png') }}" class="token" alt="token">
+  {% endfor %}
+  </div>
+  </div>
+{% endif %}
+</div>
+
+<div class="flex-col">
+  <div class="belongings_container">
+    <div class="card_container" style="font-size:24px; width:75vw; align-items:flex-end">
+      {% for series in player.sorted_cards %}
+      <div class="series">
+        {% for card in series %}
+          <div class="card" style="background-image:url({{ url_for('static', filename='pics/' + card|string + '.jpg') }})">
+          <div class="circle white">{{card}}</div>
+          </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="inline huge">
+    <img src="{{ url_for('static', filename='images/token.png') }}" class="token large" alt="token"> {{player.tokens}}
+    </div>
+  </div>
+  <div class="white button_container">
+    <button onclick="card_action(true);" class="button take_card large padding">{{text["take card"][player.lang_id]}}</button>
+    <button onclick="card_action(false);" class="button no_thanks large padding">{{text["no thanks"][player.lang_id]}}</button>
   </div>
 </div>
 
